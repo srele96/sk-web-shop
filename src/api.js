@@ -28,15 +28,4 @@ function connectToEmulators() {
 
 process.env.REACT_APP_NODE_ENV === 'development' && connectToEmulators();
 
-// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-// The file is named api.js to avoid name clash when importing it
-// When importing auth it looks like this:
-// import { auth } from './api';
-// If this file was firebase.js then it would look like this:
-// import { auth } from './firebase';
-// But if developer makes a mistake and forgets to add './' then it would
-// look like this:
-// import { auth } from 'firebase';
-// This is a mistake that should be avoided.
-// ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 export { auth, firestore };
