@@ -9,6 +9,8 @@
     "@testing-library/user-event": "^13.5.0",
     "firebase": "^9.7.0",
     "firebase-tools": "^10.7.2",
+    "husky": "^8.0.1",
+    "lint-staged": "^13.0.2",
     "prettier": "^2.6.2",
     "react": "^18.1.0",
     "react-dom": "^18.1.0",
@@ -22,7 +24,8 @@
     "eject": "react-scripts eject",
     "format": "prettier --write .",
     "firebase-init": "firebase init",
-    "firebase-emulators:start": "firebase emulators:start"
+    "firebase-emulators:start": "firebase emulators:start",
+    "prepare": "husky install"
   },
   "eslintConfig": {
     "extends": [
@@ -41,5 +44,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "lint-staged": {
+    "**/*": "prettier --write --ignore-unknown"
   }
 }
