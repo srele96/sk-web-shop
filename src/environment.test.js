@@ -18,6 +18,8 @@ function getMockedEnvAndDontDependOnEnvironmentFile() {
   };
 }
 
+// https://www.webtips.dev/how-to-mock-processenv-in-jest
+// DO NOT MODIFY THIS VALUE!!! OLD_ENV IS INITIAL .env CONFIGURATION
 const ORIGINAL_DOTENV_CONFIGURATION = process.env;
 
 beforeEach(() => {
@@ -33,19 +35,18 @@ afterAll(() => {
   process.env = ORIGINAL_DOTENV_CONFIGURATION;
 });
 
-describe('environment', function () {
-  // https://www.webtips.dev/how-to-mock-processenv-in-jest
-  // DO NOT MODIFY THIS VALUE!!! OLD_ENV IS INITIAL .env CONFIGURATION
-
-  it(`tests should modify ${ENV.NEXT_PUBLIC_NODE_ENV}`, () => {
+describe('tests', () => {
+  it(`should modify ${ENV.NEXT_PUBLIC_NODE_ENV}`, () => {
     process.env[ENV.NEXT_PUBLIC_NODE_ENV] = 'foo';
     expect(process.env[ENV.NEXT_PUBLIC_NODE_ENV]).toBe('foo');
   });
 
-  it(`tests should have initial ${ENV.NEXT_PUBLIC_NODE_ENV}`, () => {
+  it(`should have initial ${ENV.NEXT_PUBLIC_NODE_ENV} after modification`, () => {
     expect(process.env[ENV.NEXT_PUBLIC_NODE_ENV]).toBe('foo-0');
   });
+});
 
+describe('nodeEnvMustBeSpecifiedFailOtherwise', function () {
   it('throws if node environment is not "development"', () => {
     expect(() => nodeEnvMustBeSpecifiedFailOtherwise()).toThrow(
       'NODE_ENV must be "development" or "production"'
@@ -67,7 +68,9 @@ describe('environment', function () {
     process.env[ENV.NEXT_PUBLIC_NODE_ENV] = 'production';
     expect(() => nodeEnvMustBeSpecifiedFailOtherwise()).not.toThrow();
   });
+});
 
+describe('getFirebaseConfigProtectedFromVCS', () => {
   it('reads correct values from dotenv file', () => {
     const firebaseConfig = {
       apiKey: process.env[ENV.NEXT_PUBLIC_API_KEY],
@@ -79,7 +82,9 @@ describe('environment', function () {
     };
     expect(getFirebaseConfigProtectedFromVCS()).toEqual(firebaseConfig);
   });
+});
 
+describe('preventConnectionWithMissingApiKeys', () => {
   it('throws if one of the api keys is missing', () => {
     process.env[ENV.NEXT_PUBLIC_API_KEY] = undefined;
     expect(() => preventConnectionWithMissingApiKeys()).toThrow(
@@ -102,7 +107,9 @@ describe('environment', function () {
   it('does not throw if all of the api keys are present', () => {
     expect(() => preventConnectionWithMissingApiKeys()).not.toThrow();
   });
+});
 
+describe('preventUnintendedConnections', () => {
   it('does not throw if required environment keys are specified', () => {
     process.env[ENV.NEXT_PUBLIC_NODE_ENV] = 'development';
     expect(() => preventUnintendedConnections()).not.toThrow();
