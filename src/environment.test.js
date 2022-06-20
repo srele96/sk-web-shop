@@ -123,5 +123,3 @@ describe('preventUnintendedConnections', () => {
     expect(() => preventUnintendedConnections()).toThrow();
   });
 });
-
-console.log(process.env[ENV.NEXT_PUBLIC_API_KEY]);
