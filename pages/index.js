@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { addDoc, collection } from 'firebase/firestore';
-import { firestore } from './api';
+import { firestore } from '../src/api';
 
 function App() {
   // Test if app is using the emulators in development mode
@@ -9,10 +9,7 @@ function App() {
       .then(console.log)
       .catch(console.error);
   });
-  return <div></div>;
+  return <h1>NextJS</h1>;
 }
 
 export default App;
-/**
- * Migrate to NextJS.
- */
